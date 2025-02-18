@@ -1,10 +1,10 @@
-// package com.teja.transaction_service;
+// package com.teja.budget_service;
 
 // import org.junit.jupiter.api.Test;
 // import org.springframework.boot.test.context.SpringBootTest;
 
 // @SpringBootTest
-// class TransactionServiceApplicationTests {
+// class BudgetServiceApplicationTests {
 
 // 	@Test
 // 	void contextLoads() {

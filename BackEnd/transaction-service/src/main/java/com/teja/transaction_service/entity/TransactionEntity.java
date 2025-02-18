@@ -18,8 +18,10 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String transactionId;
     @Column(nullable = false)
+    private String userId;
+    @Column(nullable = false)
     private Double amount;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String category;
     @Column(nullable = false)
     private TransactionType type;
@@ -63,11 +65,15 @@ public class TransactionEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     @Override
     public String toString() {
-        return "TransactionEntity [transactionId=" + transactionId + ", amount=" + amount + ", category=" + category
-                + ", type=" + type + ", date=" + date + ", description=" + description + "]";
+        return "TransactionEntity [transactionId=" + transactionId + ", userId=" + userId + ", amount=" + amount
+                + ", category=" + category + ", type=" + type + ", date=" + date + ", description=" + description + "]";
     }
-
-    
 }

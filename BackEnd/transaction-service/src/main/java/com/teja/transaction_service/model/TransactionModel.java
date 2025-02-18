@@ -9,8 +9,10 @@ public class TransactionModel {
     @Nullable
     private String transactionId;
     @NotNull
+    private String userId;
+    @NotNull
     private Double amount;
-    @Nullable
+    @NotNull
     private String category;
     @NotNull
     private TransactionType type;
@@ -72,9 +74,17 @@ public class TransactionModel {
         this.description = description;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
-        return "Transaction [transactionId=" + transactionId + ", amount=" + amount + ", category=" + category
-                + ", type=" + type + ", date=" + date + ", description=" + description + "]";
+        return "TransactionModel [transactionId=" + transactionId + ", userId=" + userId + ", amount=" + amount
+                + ", category=" + category + ", type=" + type + ", date=" + date + ", description=" + description + "]";
     }
 }
