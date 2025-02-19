@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="mb-3 text-end">
+    <button class="btn btn-primary btn-sm" (click)="createTransaction()">
+      <i class="bi bi-plus me-1"></i>Add Transaction
+    </button>
+  </div>
+
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Date</th>
+        <th scope="col">Category</th>
+        <th scope="col">Type</th>
+        <th scope="col">Description</th>
+        <th scope="col">Amount</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.transactionId }}</td>
+        <td>{{ transaction.date | date:'shortDate' }}</td>
+        <td>{{ transaction.category }}</td>
+        <td>{{ transaction.type }}</td>
+        <td>{{ transaction.description }}</td>
+        <td [ngClass]="{'text-danger': transaction.type === 'EXPENSE', 'text-success': transaction.type === 'INCOME'}">
+          {{ transaction.amount | currency }}
+        </td>
+        <td class="action-column">
+          <i class="bi bi-trash text-danger delete-icon" 
+             role="button" 
+             (click)="deleteTransaction(transaction.transactionId)">
+          </i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  @if (totalElements > totalPages) {
+    <nav>
+      <ul class="pagination justify-content-end">
+        <li class="page-item" [class.disabled]="pageIndex === 0">
+        <a class="page-link" (click)="onPageChange(pageIndex - 1)">Previous</a>
+      </li>
+      @for (page of [].constructor(totalPages); track $index) {
+        <li class="page-item" [class.active]="$index === pageIndex">
+          <a class="page-link" (click)="onPageChange($index)">{{ $index + 1 }}</a>
+        </li>
+      }
+      <li class="page-item" [class.disabled]="pageIndex >= totalPages - 1">
+        <a class="page-link" (click)="onPageChange(pageIndex + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+  }
+</div>
