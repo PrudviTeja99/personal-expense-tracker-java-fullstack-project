@@ -6,5 +6,5 @@ export const routes: Routes = [
   { path: 'overview', component: AnalyticsOverviewComponent },
   { path: 'transactions', component: TransactionListComponent },
   { path: 'budget', component: BudgetListComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: '/overview', pathMatch: 'full' }
 ];
