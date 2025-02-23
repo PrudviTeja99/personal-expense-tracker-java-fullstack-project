@@ -1,6 +1,7 @@
 package com.teja.budget_service.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,15 @@ public class BudgetServiceImpl implements BudgetService {
 
     @Override
     public void deleteBudget(String budgetId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteBudget'");
+        try{
+            if(!budgetRepository.existsById(budgetId)){
+                throw new RuntimeException("Unable to find budget with id: "+budgetId);
+            }
+            budgetRepository.deleteById(budgetId);
+        }
+        catch (Exception exception){
+            throw new RuntimeException("Unable to delete budget");
+        }
     }
 
 }

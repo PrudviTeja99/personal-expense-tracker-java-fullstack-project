@@ -12,6 +12,6 @@ import { NotificationService } from '../../../features/notification/services/not
 export class HeaderComponent {
 
   constructor(private notificationService: NotificationService) {
-    this.notificationService.connect('john');
+    // this.notificationService.connect('john');
   }
 }

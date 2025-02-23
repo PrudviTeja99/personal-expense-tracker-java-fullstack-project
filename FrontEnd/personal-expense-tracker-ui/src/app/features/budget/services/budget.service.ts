@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class BudgetService {
   constructor(private http: HttpClient) { }
 
   getBudgets() {
-    return this.http.get<any>('http://localhost:3000/budgets');
+    return this.http.get<any>(environment.budgetServiceUrl);
   }
 
   createBudget(budget: any) {
@@ -21,6 +22,6 @@ export class BudgetService {
   }
 
   deleteBudget(id: any) {
-    return this.http.delete<any>(`http://localhost:3000/budgets/${id}`);
+    return this.http.delete<any>(`${environment.budgetServiceUrl}/${id}`);
   }
 }

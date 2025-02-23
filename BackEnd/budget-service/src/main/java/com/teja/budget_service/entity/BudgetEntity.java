@@ -18,7 +18,7 @@ public class BudgetEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String budgetId;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String userId;
     
     @Column(nullable = false)
