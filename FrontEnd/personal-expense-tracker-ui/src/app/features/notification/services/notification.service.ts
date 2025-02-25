@@ -11,7 +11,7 @@ export class NotificationService {
   constructor() { }
 
   connect(userId: string): void {
-    const wsUrl = environment.websocketUrl;
+    const wsUrl = environment.notificationServiceURL;
     
     this.stompClient = new Client({
       brokerURL: wsUrl,

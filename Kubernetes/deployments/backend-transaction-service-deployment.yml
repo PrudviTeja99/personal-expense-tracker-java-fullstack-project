@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: transaction-service
-          image: prudviteja/transaction:beta
+          image: prudviteja/transaction:beta-v3
           ports:
             - containerPort: 8080
           env:
