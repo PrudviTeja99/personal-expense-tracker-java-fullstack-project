@@ -13,7 +13,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/transactions")
-@CrossOrigin(origins = "http://personal-expense-tracker-ui-service:80")
 public class TransactionController {
 
     @Autowired
