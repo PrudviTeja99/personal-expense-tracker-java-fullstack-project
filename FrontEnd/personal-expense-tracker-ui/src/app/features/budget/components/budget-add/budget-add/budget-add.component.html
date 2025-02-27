@@ -5,35 +5,32 @@
     <div class="d-flex fw-bold fs-1 flex-grow-1 align-items-center justify-content-center">
         Add Budget
     </div>
-    <form class="d-flex flex-column my-4" [formGroup]="formgroup" (ngSubmit)="createBudget()">
-        <div class="form-group m-2">
-            <div>
-                <label for="category">Category</label>
-            </div>
-            <div>
-                <input class="form-control" id="category" type="text">
-            </div>
-        </div>
-        <div class="form-group m-2">
-            <div>
-                <label>Budget</label>
-            </div>
-            <div>
-                <input class="form-control" type="number">
-            </div>
-        </div>
-        <div class="form-group m-2">
-            <div><label>Start Time</label></div>
-            <div>
-                <input class="form-control" type="datetime">
-            </div>
-        </div>
-        <div class="form-group m-2">
-            <div><label>End Time</label></div>
-            <div>
-                <input class="form-control" type="datetime">
-            </div>
-        </div>
+    <form class="d-flex flex-column my-4" [formGroup]="budgetGroup" (ngSubmit)="createBudget()">
+        <mat-form-field>
+            <mat-label>Category</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Budget Amount</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [formGroup]="budgetGroup" [rangePicker]="picker">
+              <input matStartDate formControlName="startDate" placeholder="Start date">
+              <input matEndDate formControlName="endDate" placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          
+            @if (budgetGroup.controls['startDate'].hasError('matStartDateInvalid')) {
+              <mat-error>Invalid start date</mat-error>
+            }
+            @if (budgetGroup.controls['endDate'].hasError('matEndDateInvalid')) {
+              <mat-error>Invalid end date</mat-error>
+            }
+          </mat-form-field>
         
         <div class="align-self-end mt-4">
             <div><button class="btn btn-primary" type="submit">Create</button></div>

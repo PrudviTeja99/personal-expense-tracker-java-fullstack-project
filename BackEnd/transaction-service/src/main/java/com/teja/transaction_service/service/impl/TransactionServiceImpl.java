@@ -3,6 +3,8 @@ package com.teja.transaction_service.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import com.teja.transaction_service.service.TransactionService;
 @Service
 public class TransactionServiceImpl implements TransactionService{
 
+    private static final Logger log = LoggerFactory.getLogger(TransactionServiceImpl.class);
     @Autowired
     private TransactionRepository transactionRepository;
 
@@ -39,12 +42,11 @@ public class TransactionServiceImpl implements TransactionService{
         try {
             Page<TransactionEntity> pageableTransactionsFromDatabase = transactionRepository.findAll(Pageable.ofSize(size).withPage(page));
             List<TransactionModel> transactions = new ArrayList<>();
-            pageableTransactionsFromDatabase.toList().stream().map(transactionEntity->{
+            for(TransactionEntity transactionEntity:pageableTransactionsFromDatabase.getContent()){
                 TransactionModel transactionModel = new TransactionModel();
-                BeanUtils.copyProperties(transactionEntity, transactionModel);
+                BeanUtils.copyProperties(transactionEntity,transactionModel);
                 transactions.add(transactionModel);
-                return transactionModel;
-            });
+            }
             PageableTransactions pageableTransactions = new PageableTransactions(transactions,pageableTransactionsFromDatabase.getTotalPages(),pageableTransactionsFromDatabase.getTotalElements());
             return pageableTransactions;
         } catch (Exception e) {

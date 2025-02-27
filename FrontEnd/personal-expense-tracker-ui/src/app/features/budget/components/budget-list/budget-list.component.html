@@ -35,4 +35,21 @@
             }
         </tbody>
     </table>
+    @if (totalElements > pageIndex) {
+        <nav>
+          <ul class="pagination justify-content-end">
+            <li class="page-item" [class.disabled]="pageIndex === 0">
+            <a role="button" class="page-link" (click)="onPageChange(pageIndex - 1)">Previous</a>
+          </li>
+          @for (page of [].constructor(totalPages); track $index) {
+            <li class="page-item" [class.active]="$index === pageIndex">
+              <a role="button" class="page-link" (click)="onPageChange($index)">{{ $index + 1 }}</a>
+            </li>
+          }
+          <li class="page-item" [class.disabled]="pageIndex >= totalPages - 1">
+            <a role="button" class="page-link" (click)="onPageChange(pageIndex + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+      }
 </div>

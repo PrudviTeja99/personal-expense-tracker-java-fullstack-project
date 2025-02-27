@@ -18,17 +18,17 @@ public class BudgetEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String budgetId;
     
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String userId;
     
     @Column(nullable = false)
     private String category;
     
     @Column(name = "limit_amount", nullable = false)
-    private BigDecimal limitAmount;
+    private Long limitAmount;
     
     @Column(name = "current_spent")
-    private BigDecimal currentSpent;
+    private Long currentSpent;
     
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
@@ -64,19 +64,19 @@ public class BudgetEntity {
         this.category = category;
     }
 
-    public BigDecimal getLimitAmount() {
+    public Long getLimitAmount() {
         return limitAmount;
     }
 
-    public void setLimitAmount(BigDecimal limitAmount) {
+    public void setLimitAmount(Long limitAmount) {
         this.limitAmount = limitAmount;
     }
 
-    public BigDecimal getCurrentSpent() {
+    public Long getCurrentSpent() {
         return currentSpent;
     }
 
-    public void setCurrentSpent(BigDecimal currentSpent) {
+    public void setCurrentSpent(Long currentSpent) {
         this.currentSpent = currentSpent;
     }
 

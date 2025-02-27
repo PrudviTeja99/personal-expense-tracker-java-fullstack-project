@@ -7,8 +7,8 @@ public class BudgetModel {
     private String budgetId;
     private String userId;
     private String category;
-    private BigDecimal limitAmount;
-    private BigDecimal currentSpent;
+    private Long limitAmount;
+    private Long currentSpent;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
@@ -17,7 +17,7 @@ public class BudgetModel {
 
     // Constructor with all fields
     public BudgetModel(String budgetId, String userId, String category, 
-                     BigDecimal limitAmount, BigDecimal currentSpent, 
+                     Long limitAmount, Long currentSpent,
                      LocalDateTime startDate, LocalDateTime endDate) {
         this.budgetId = budgetId;
         this.userId = userId;
@@ -53,19 +53,19 @@ public class BudgetModel {
         this.category = category;
     }
 
-    public BigDecimal getLimitAmount() {
+    public Long getLimitAmount() {
         return limitAmount;
     }
 
-    public void setLimitAmount(BigDecimal limitAmount) {
+    public void setLimitAmount(Long limitAmount) {
         this.limitAmount = limitAmount;
     }
 
-    public BigDecimal getCurrentSpent() {
+    public Long getCurrentSpent() {
         return currentSpent;
     }
 
-    public void setCurrentSpent(BigDecimal currentSpent) {
+    public void setCurrentSpent(Long currentSpent) {
         this.currentSpent = currentSpent;
     }
 

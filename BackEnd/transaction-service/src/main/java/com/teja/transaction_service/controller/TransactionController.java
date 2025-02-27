@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/transactions")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TransactionController {
 
     @Autowired
@@ -24,7 +25,7 @@ public class TransactionController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageableTransactions> getAllTransactions(@RequestParam(defaultValue = "0",name = "page") int page, @RequestParam(defaultValue = "10",name = "size") int size) {
+    public ResponseEntity<PageableTransactions> getAllTransactions(@RequestParam(defaultValue = "0",name = "page",required = false) int page, @RequestParam(defaultValue = "10",name = "size",required = false) int size) {
         return ResponseEntity.ok(transactionService.getAllTransactions(page, size));
     }
 

@@ -18,37 +18,39 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let transaction of transactions">
-        <td>{{ transaction.transactionId }}</td>
-        <td>{{ transaction.date | date:'shortDate' }}</td>
-        <td>{{ transaction.category }}</td>
-        <td>{{ transaction.type }}</td>
-        <td>{{ transaction.description }}</td>
-        <td [ngClass]="{'text-danger': transaction.type === 'EXPENSE', 'text-success': transaction.type === 'INCOME'}">
-          {{ transaction.amount | currency }}
-        </td>
-        <td class="action-column">
-          <i class="bi bi-trash text-danger delete-icon" 
-             role="button" 
-             (click)="deleteTransaction(transaction.transactionId)">
-          </i>
-        </td>
-      </tr>
+      @for(transaction of transactions; track transaction; let index=$index){
+        <tr>
+          <td>{{ transaction.transactionId }}</td>
+          <td>{{ transaction.date | date:'shortDate' }}</td>
+          <td>{{ transaction.category }}</td>
+          <td>{{ transaction.type }}</td>
+          <td>{{ transaction.description }}</td>
+          <td [ngClass]="{'text-danger': transaction.type === 'EXPENSE', 'text-success': transaction.type === 'INCOME'}">
+            {{ transaction.amount | currency }}
+          </td>
+          <td class="action-column">
+            <i class="bi bi-trash text-danger delete-icon" 
+               role="button" 
+               (click)="deleteTransaction(transaction.transactionId,index)">
+            </i>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
-  @if (totalElements > totalPages) {
+  @if (totalElements > pageIndex) {
     <nav>
       <ul class="pagination justify-content-end">
         <li class="page-item" [class.disabled]="pageIndex === 0">
-        <a class="page-link" (click)="onPageChange(pageIndex - 1)">Previous</a>
+        <a role="button" class="page-link" (click)="onPageChange(pageIndex - 1)">Previous</a>
       </li>
       @for (page of [].constructor(totalPages); track $index) {
         <li class="page-item" [class.active]="$index === pageIndex">
-          <a class="page-link" (click)="onPageChange($index)">{{ $index + 1 }}</a>
+          <a role="button" class="page-link" (click)="onPageChange($index)">{{ $index + 1 }}</a>
         </li>
       }
       <li class="page-item" [class.disabled]="pageIndex >= totalPages - 1">
-        <a class="page-link" (click)="onPageChange(pageIndex + 1)">Next</a>
+        <a role="button" class="page-link" (click)="onPageChange(pageIndex + 1)">Next</a>
       </li>
     </ul>
   </nav>
