@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+import { transaction } from '../model/transaction.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class TransactionService {
     return this.http.get<any>(environment.transactionServiceURL,{params:{"page":page,"size":size}});
   }
  
-  createTransaction(transaction: any) {
+  createTransaction(transaction: transaction) {
+    transaction.userId='testuser';
     return this.http.post<any>(environment.transactionServiceURL, transaction);
   }
 

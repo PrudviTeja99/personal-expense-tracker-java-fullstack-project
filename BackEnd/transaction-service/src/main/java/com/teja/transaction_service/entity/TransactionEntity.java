@@ -1,5 +1,6 @@
 package com.teja.transaction_service.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import com.teja.transaction_service.model.TransactionType;
@@ -26,7 +27,7 @@ public class TransactionEntity {
     @Column(nullable = false)
     private TransactionType type;
     @Column(nullable = false)
-    private LocalDateTime date;
+    private Timestamp date;
     @Column(nullable = true)
     private String description;
     public String getTransactionId() {
@@ -53,10 +54,10 @@ public class TransactionEntity {
     public void setType(TransactionType type) {
         this.type = type;
     }
-    public LocalDateTime getDate() {
+    public Timestamp getDate() {
         return date;
     }
-    public void setDate(LocalDateTime date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
     public String getDescription() {

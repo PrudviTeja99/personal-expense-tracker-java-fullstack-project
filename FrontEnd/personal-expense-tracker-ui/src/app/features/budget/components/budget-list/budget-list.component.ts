@@ -3,6 +3,7 @@ import { BudgetService } from '../../services/budget.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { BudgetAddComponent } from '../budget-add/budget-add/budget-add.component';
+import { budget } from '../../model/budget.model';
 
 @Component({
   selector: 'app-budget-list',
@@ -17,7 +18,7 @@ export class BudgetListComponent {
 
   totalPages:number=0;
   totalElements:number=0;
-  budgetItems:any[]=[];
+  budgetItems:budget[]=[];
 
   constructor(private budgetService:BudgetService,private matDialog:MatDialog){
   }

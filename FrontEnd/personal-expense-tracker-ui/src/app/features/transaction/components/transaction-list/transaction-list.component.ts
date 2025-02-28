@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { TransactionAddComponent } from '../transaction-add/transaction-add/transaction-add.component';
+import { transaction } from '../../model/transaction.model';
 
 @Component({
   selector: 'app-transaction-list',
@@ -22,7 +23,7 @@ export class TransactionListComponent {
 
   totalElements = 0;
   totalPages = 0;
-  transactions: any[]=[];
+  transactions: transaction[]=[];
 
   constructor(private transactionService: TransactionService,private matDialog:MatDialog) {
     this.transactionService.getTransactions(this.pageIndex,this.pageSize).subscribe((pageableTransactions) => {
@@ -63,6 +64,7 @@ export class TransactionListComponent {
         if(data!=undefined){
           this.transactionService.createTransaction(data.transaction).subscribe({
             next: (data)=>{
+              
               console.log("Successfully Created !!");
             },
             error: (error)=>{

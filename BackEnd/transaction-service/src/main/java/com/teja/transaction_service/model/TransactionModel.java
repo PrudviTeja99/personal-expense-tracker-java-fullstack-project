@@ -1,5 +1,6 @@
 package com.teja.transaction_service.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import jakarta.annotation.Nullable;
@@ -17,7 +18,7 @@ public class TransactionModel {
     @NotNull
     private TransactionType type;
     @NotNull
-    private LocalDateTime date;
+    private Timestamp date;
     @Nullable
     private String description;
 
@@ -58,11 +59,11 @@ public class TransactionModel {
         this.type = type;
     }
 
-    public LocalDateTime getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
