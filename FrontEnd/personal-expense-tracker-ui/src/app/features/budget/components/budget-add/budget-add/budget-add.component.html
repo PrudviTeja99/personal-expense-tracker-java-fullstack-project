@@ -6,14 +6,29 @@
         Add Budget
     </div>
     <form class="d-flex flex-column my-4" [formGroup]="budgetGroup" (ngSubmit)="createBudget()">
+
         <mat-form-field>
             <mat-label>Category</mat-label>
-            <input matInput>
+            <input matInput formControlName="category">
+            @if(budgetGroup.controls['category'].dirty && budgetGroup.controls['category'].invalid){
+              <mat-error>Invalid Category !!</mat-error>
+            }
+            @if(budgetGroup.controls['category'].errors){
+              <mat-error>Category is required !!</mat-error>
+            }
         </mat-form-field>
+
         <mat-form-field>
             <mat-label>Budget Amount</mat-label>
-            <input matInput>
+            <input matInput type="number" formControlName="limitAmount">
+            @if(budgetGroup.controls['limitAmount'].touched && budgetGroup.controls['limitAmount'].invalid){
+              <mat-error>Invalid budget amount !!</mat-error>
+            }
+            @if(budgetGroup.controls['limitAmount'].errors){
+              <mat-error>Budget amount is required !!</mat-error>
+            }
         </mat-form-field>
+
         <mat-form-field>
             <mat-label>Enter a date range</mat-label>
             <mat-date-range-input [formGroup]="budgetGroup" [rangePicker]="picker">
@@ -25,10 +40,10 @@
             <mat-date-range-picker #picker></mat-date-range-picker>
           
             @if (budgetGroup.controls['startDate'].hasError('matStartDateInvalid')) {
-              <mat-error>Invalid start date</mat-error>
+              <mat-error>Invalid start date !!</mat-error>
             }
             @if (budgetGroup.controls['endDate'].hasError('matEndDateInvalid')) {
-              <mat-error>Invalid end date</mat-error>
+              <mat-error>Invalid end date !!</mat-error>
             }
           </mat-form-field>
         

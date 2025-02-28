@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { TransactionAddComponent } from '../transaction-add/transaction-add/transaction-add.component';
 import { transaction } from '../../model/transaction.model';
 
@@ -25,7 +25,9 @@ export class TransactionListComponent {
   totalPages = 0;
   transactions: transaction[]=[];
 
-  constructor(private transactionService: TransactionService,private matDialog:MatDialog) {
+  constructor(private transactionService: TransactionService,private matDialog:MatDialog) {}
+
+  ngOnInit(){
     this.transactionService.getTransactions(this.pageIndex,this.pageSize).subscribe((pageableTransactions) => {
       this.transactions = pageableTransactions.transactions;
       this.totalElements = pageableTransactions.totalElements;
@@ -64,7 +66,7 @@ export class TransactionListComponent {
         if(data!=undefined){
           this.transactionService.createTransaction(data.transaction).subscribe({
             next: (data)=>{
-              
+
               console.log("Successfully Created !!");
             },
             error: (error)=>{

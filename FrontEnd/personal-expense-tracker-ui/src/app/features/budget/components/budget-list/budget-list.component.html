@@ -1,55 +1,52 @@
 <div class="container">
-    <div class="mb-3 text-end">
-        <button class="btn btn-primary btn-sm" (click)="createBudget()">
-          <i class="bi bi-plus me-1"></i>Add Budget
-        </button>
-    </div>
-    <table class="table table-striped table-hover text-center">
-        <thead class="table-dark">
-            <tr>
-                <th scope="col">Budget Id</th>
-                <th scope="col">Category</th>
-                <th scope="col">Budget Amount</th>
-                <th scope="col">Current Amount</th>
-                <th scope="col">Start</th>
-                <th scope="col">End</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @for(budget of budgetItems;track budget){
-                <tr>
-                    <td>{{budget.budgetId}}</td>
-                    <td>{{budget.category}}</td>
-                    <td>{{budget.limitAmount}}</td>
-                    <td>{{budget.currentSpent}}</td>
-                    <td>{{budget.startDate}}</td>
-                    <td>{{budget.endDate}}</td>
-                    <td class="action-column">
-                        <i class="bi bi-trash text-danger delete-icon" 
-                        role="button" 
-                        (click)="deleteBudget(budget.budgetId)">
-                     </i>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    @if (totalElements > pageIndex) {
-        <nav>
-          <ul class="pagination justify-content-end">
-            <li class="page-item" [class.disabled]="pageIndex === 0">
-            <a role="button" class="page-link" (click)="onPageChange(pageIndex - 1)">Previous</a>
-          </li>
-          @for (page of [].constructor(totalPages); track $index) {
-            <li class="page-item" [class.active]="$index === pageIndex">
-              <a role="button" class="page-link" (click)="onPageChange($index)">{{ $index + 1 }}</a>
-            </li>
-          }
-          <li class="page-item" [class.disabled]="pageIndex >= totalPages - 1">
-            <a role="button" class="page-link" (click)="onPageChange(pageIndex + 1)">Next</a>
-          </li>
-        </ul>
-      </nav>
+  <div class="mb-3 text-end">
+    <button class="btn btn-primary btn-sm" (click)="createBudget()">
+      <i class="bi bi-plus me-1"></i>Add Budget
+    </button>
+  </div>
+  <table class="table table-striped table-hover text-center">
+    <thead class="table-dark">
+      <tr>
+
+        <th scope="col">Category</th>
+        <th scope="col">Budget Amount</th>
+        <th scope="col">Current Amount</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(budget of budgets;track budget; let index=$index){
+      <tr>
+        <td>{{budget.category}}</td>
+        <td>{{budget.limitAmount}}</td>
+        <td>{{budget.currentSpent}}</td>
+        <td>{{budget.startDate | date}}</td>
+        <td>{{budget.endDate | date}}</td>
+        <td class="action-column">
+          <i class="bi bi-trash text-danger delete-icon" role="button" (click)="deleteBudget(budget.budgetId,index)">
+          </i>
+        </td>
+      </tr>
       }
+    </tbody>
+  </table>
+  @if (totalElements > pageIndex) {
+  <nav>
+    <ul class="pagination justify-content-end">
+      <li class="page-item" [class.disabled]="pageIndex === 0">
+        <a role="button" class="page-link" (click)="onPageChange(pageIndex - 1)">Previous</a>
+      </li>
+      @for (page of [].constructor(totalPages); track $index) {
+      <li class="page-item" [class.active]="$index === pageIndex">
+        <a role="button" class="page-link" (click)="onPageChange($index)">{{ $index + 1 }}</a>
+      </li>
+      }
+      <li class="page-item" [class.disabled]="pageIndex >= totalPages - 1">
+        <a role="button" class="page-link" (click)="onPageChange(pageIndex + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+  }
 </div>

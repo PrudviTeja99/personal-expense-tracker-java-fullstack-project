@@ -1,6 +1,7 @@
 package com.teja.budget_service.model;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class BudgetModel {
@@ -9,16 +10,18 @@ public class BudgetModel {
     private String category;
     private Long limitAmount;
     private Long currentSpent;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
 
     // Default constructor
-    public BudgetModel() {}
+    public BudgetModel() {
+        this.currentSpent=0L;
+    }
 
     // Constructor with all fields
     public BudgetModel(String budgetId, String userId, String category, 
                      Long limitAmount, Long currentSpent,
-                     LocalDateTime startDate, LocalDateTime endDate) {
+                     Timestamp startDate, Timestamp endDate) {
         this.budgetId = budgetId;
         this.userId = userId;
         this.category = category;   
@@ -69,19 +72,19 @@ public class BudgetModel {
         this.currentSpent = currentSpent;
     }
 
-    public LocalDateTime getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 

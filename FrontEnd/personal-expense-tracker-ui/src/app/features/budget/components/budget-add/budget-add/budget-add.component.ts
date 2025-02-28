@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -20,15 +20,20 @@ export class BudgetAddComponent {
 
   constructor(private formBuilder:FormBuilder,private matDialog:MatDialogRef<BudgetAddComponent>,@Inject(MAT_DIALOG_DATA) data:any){
     this.budgetGroup = formBuilder.group({
-      category: new FormControl(null),
-      limitAmount: new FormControl(0),
-      startDate: new FormControl(null),
-      endDate: new FormControl(null)
+      category: new FormControl(null,[Validators.required]),
+      limitAmount: new FormControl(null,[Validators.required]),
+      startDate: new FormControl(null,[Validators.required]),
+      endDate: new FormControl(null,[Validators.required])
     });
   }
 
   createBudget(){
-
+    if(this.budgetGroup.valid){
+      this.matDialog.close({budget: this.budgetGroup.value});
+    }
+    else{
+      this.budgetGroup.touched;
+    }
   }
 
   onCancel(){

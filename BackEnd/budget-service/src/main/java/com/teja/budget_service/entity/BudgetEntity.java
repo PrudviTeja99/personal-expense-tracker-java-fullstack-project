@@ -1,6 +1,7 @@
 package com.teja.budget_service.entity;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -28,13 +29,13 @@ public class BudgetEntity {
     private Long limitAmount;
     
     @Column(name = "current_spent")
-    private Long currentSpent;
+    private Long currentSpent = 0L;
     
     @Column(name = "start_date", nullable = false)
-    private LocalDateTime startDate;
+    private Timestamp startDate;
     
     @Column(name = "end_date", nullable = false)
-    private LocalDateTime endDate;
+    private Timestamp endDate;
 
     // Default constructor
     public BudgetEntity() {}
@@ -80,19 +81,19 @@ public class BudgetEntity {
         this.currentSpent = currentSpent;
     }
 
-    public LocalDateTime getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+import { budget } from '../model/budget.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,12 @@ export class BudgetService {
 
   constructor(private http: HttpClient) { }
 
-  getBudgets() {
+  getBudgets(page:number,size:number) {
     return this.http.get<any>(environment.budgetServiceURL);
   }
 
-  createBudget(budget: any) {
+  createBudget(budget: budget) {
+    budget.userId = "testUser";
     return this.http.post<any>(environment.budgetServiceURL, budget);
   }
 
