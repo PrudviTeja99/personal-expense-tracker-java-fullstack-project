@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionAddComponent } from '../transaction-add/transaction-add/transaction-add.component';
 import { transaction } from '../../model/transaction.model';
@@ -10,8 +9,7 @@ import { transaction } from '../../model/transaction.model';
   selector: 'app-transaction-list',
   standalone: true,
   imports: [
-    CommonModule,
-    HttpClientModule
+    CommonModule
   ],
   providers: [TransactionService],
   templateUrl: './transaction-list.component.html',
@@ -28,11 +26,7 @@ export class TransactionListComponent {
   constructor(private transactionService: TransactionService,private matDialog:MatDialog) {}
 
   ngOnInit(){
-    this.transactionService.getTransactions(this.pageIndex,this.pageSize).subscribe((pageableTransactions) => {
-      this.transactions = pageableTransactions.transactions;
-      this.totalElements = pageableTransactions.totalElements;
-      this.totalPages = pageableTransactions.totalPages;
-    });
+    this.fetchTransactions(this.pageIndex,this.pageSize);
   }
 
   deleteTransaction(transactionId: string,elementIndex:number){
@@ -40,16 +34,18 @@ export class TransactionListComponent {
     this.transactionService.deleteTransaction(transactionId).subscribe({
       next: (data) => {
         console.log("Successfully Deleted ");
-        console.log(this.transactions.length);
-        this.transactions.splice(elementIndex,1);
-        console.log(this.transactions.length)
+        this.fetchTransactions(this.pageIndex,this.pageSize);
       },
       error: (error)=> console.error("Unable to del")
     })
   }
 
-  editTransaction(transactionId: string){
-    console.log(transactionId);
+  fetchTransactions(pageIndex:number,pageSize:number){
+    this.transactionService.getTransactions(pageIndex,pageSize).subscribe((pageableTransactions) => {
+      this.transactions = pageableTransactions.transactions;
+      this.totalElements = pageableTransactions.totalElements;
+      this.totalPages = pageableTransactions.totalPages;
+    });
   }
 
   createTransaction(){
@@ -66,8 +62,8 @@ export class TransactionListComponent {
         if(data!=undefined){
           this.transactionService.createTransaction(data.transaction).subscribe({
             next: (data)=>{
-
               console.log("Successfully Created !!");
+              this.transactionService.getTransactions(this.pageIndex,this.pageSize).subscribe({});
             },
             error: (error)=>{
               console.error("Unable to create transaction !!");
@@ -80,8 +76,6 @@ export class TransactionListComponent {
 
   onPageChange(pageIndex: number){
     this.pageIndex = pageIndex;
-    this.transactionService.getTransactions(this.pageIndex, this.pageSize).subscribe((pageableTransactions) => {
-      this.transactions = pageableTransactions.transactions;
-    });
+    this.fetchTransactions(pageIndex,this.pageSize);
   }
 }
