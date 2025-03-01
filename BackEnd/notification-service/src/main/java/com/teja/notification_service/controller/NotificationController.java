@@ -6,17 +6,19 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teja.notification_service.model.Notification;
 
 @RestController
+@RequestMapping(name = "/api/v1/notifications")
 public class NotificationController {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    @GetMapping("/send")
+    @GetMapping()
     // @SendTo("/users/notification")
     public void sendNotification() {
         String notificationId = UUID.randomUUID().toString();

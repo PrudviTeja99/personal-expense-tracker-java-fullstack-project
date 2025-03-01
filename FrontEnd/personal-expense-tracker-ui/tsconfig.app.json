@@ -10,11 +10,13 @@
   },
   "files": [
     "src/main.ts",
-    "src/main.server.ts",
-    "src/server.ts",
     "src/window-global.ts"
   ],
   "include": [
     "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/main.server.ts",
+    "src/server.ts",
   ]
 }

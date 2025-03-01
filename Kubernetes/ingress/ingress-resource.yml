@@ -24,3 +24,17 @@ spec:
                 name: transaction-service
                 port:
                   number: 8080
+          - path: /api/v1/budgets
+            pathType: Prefix
+            backend:
+              service:
+                name: budget-service
+                port:
+                  number: 8080
+          - path: /api/v1/notifications
+            pathType: Prefix
+            backend:
+              service:
+                name: notification-service
+                port:
+                  number: 8080

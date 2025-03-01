@@ -13,16 +13,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationConsumerService {
 
-    private final SimpMessagingTemplate messagingTemplate;
-
-    public NotificationConsumerService(SimpMessagingTemplate messagingTemplate) {
-        this.messagingTemplate = messagingTemplate;
-    }
-
-    @KafkaListener(topics = "${spring.kafka.consumer.topics}", groupId = "${spring.kafka.consumer.group-id}")
-    public void consume(ConsumerRecord<String, String> record) {
-        String notificationId = UUID.randomUUID().toString();
-        Notification notification = new Notification(notificationId, record.value(), "Budget Alert", LocalDateTime.now());
-        messagingTemplate.convertAndSendToUser(record.key(), "/notifications", notification);
-    }
+//    private final SimpMessagingTemplate messagingTemplate;
+//
+//    public NotificationConsumerService(SimpMessagingTemplate messagingTemplate) {
+//        this.messagingTemplate = messagingTemplate;
+//    }
+//
+//    @KafkaListener(topics = "${spring.kafka.consumer.topics}", groupId = "${spring.kafka.consumer.group-id}")
+//    public void consume(ConsumerRecord<String, String> record) {
+//        String notificationId = UUID.randomUUID().toString();
+//        Notification notification = new Notification(notificationId, record.value(), "Budget Alert", LocalDateTime.now());
+//        messagingTemplate.convertAndSendToUser(record.key(), "/notifications", notification);
+//    }
 } 

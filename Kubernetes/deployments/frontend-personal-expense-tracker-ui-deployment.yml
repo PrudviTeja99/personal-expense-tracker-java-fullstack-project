@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: personal-expense-tracker-ui
-        image: prudviteja/personal-expense-tracker-ui:alpha-v4
+        image: prudviteja/personal-expense-tracker-ui:alpha-v6
         ports:
         - containerPort: 80

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-notification-service-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      backend: notification
+  template:
+    metadata:
+      name: notification-service
+      labels:
+        backend: notification
+    spec:
+      containers:
+        - name: notification-service
+          image: prudviteja/notification:alpha-v1
+          ports:
+           - containerPort: 8080
