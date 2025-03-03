@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      frontend: personal-expense-tracker-ui
+  template:
+    metadata:
+      name: personal-expense-tracker
+      labels:
+        frontend: personal-expense-tracker-ui
+    spec:
+      containers:
+      - name: personal-expense-tracker-ui
+        image: prudviteja/personal-expense-tracker-ui:alpha-v6
+        ports:
+        - containerPort: 80
