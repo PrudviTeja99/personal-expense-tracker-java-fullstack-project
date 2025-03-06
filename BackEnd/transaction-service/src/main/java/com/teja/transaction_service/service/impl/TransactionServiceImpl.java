@@ -3,6 +3,7 @@ package com.teja.transaction_service.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.teja.transaction_service.service.TransactionKafkaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -23,6 +24,8 @@ public class TransactionServiceImpl implements TransactionService{
     private static final Logger log = LoggerFactory.getLogger(TransactionServiceImpl.class);
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private TransactionKafkaService transactionKafkaService;
 
     @Override
     public TransactionModel createTransaction(TransactionModel transaction) {
@@ -31,6 +34,8 @@ public class TransactionServiceImpl implements TransactionService{
             BeanUtils.copyProperties(transaction, transactionEntity);
             transactionEntity = transactionRepository.save(transactionEntity);
             transaction.setTransactionId(transactionEntity.getTransactionId());
+            //publishes transaction to topic
+            transactionKafkaService.publishTransactionToTopic(transaction);
             return transaction;
         } catch (Exception e) {
             throw new RuntimeException("Unable to create transaction", e);
