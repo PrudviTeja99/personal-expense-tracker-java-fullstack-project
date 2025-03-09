@@ -36,7 +36,7 @@ export class TransactionListComponent {
         console.log("Successfully Deleted ");
         this.fetchTransactions(this.pageIndex,this.pageSize);
       },
-      error: (error)=> console.error("Unable to del")
+      error: (error)=> console.error("Unable to delete !!")
     })
   }
 
@@ -63,7 +63,7 @@ export class TransactionListComponent {
           this.transactionService.createTransaction(data.transaction).subscribe({
             next: (data)=>{
               console.log("Successfully Created !!");
-              this.transactionService.getTransactions(this.pageIndex,this.pageSize).subscribe({});
+              this.fetchTransactions(this.pageIndex,this.pageSize);
             },
             error: (error)=>{
               console.error("Unable to create transaction !!");

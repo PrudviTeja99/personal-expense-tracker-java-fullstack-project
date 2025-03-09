@@ -17,6 +17,6 @@ spring:
       bootstrapServers: ${KAFKA_CLUSTER}
       keySerializer: org.apache.kafka.common.serialization.StringSerializer
       valueSerializer: org.apache.kafka.common.serialization.StringSerializer
-      topic: ${KAFKA_TOPIC}
+      topic: ${KAFKA_TOPIC_TRANSACTION}
 server:
   port: ${SERVER_PORT}

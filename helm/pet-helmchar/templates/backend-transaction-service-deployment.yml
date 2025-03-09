@@ -29,4 +29,8 @@ spec:
               value: postgres
             - name: DATABASE_PASSWORD
               value: test
+            - name: KAFKA_CLUSTER
+              value: kafka:9092
+            - name: KAFKA_TOPIC_TRANSACTION
+              value: transaction
 

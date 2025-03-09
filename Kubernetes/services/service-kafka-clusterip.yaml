@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-service
+spec:
+  type: ClusterIP
+  selector:
+    mq: kafka-cluster
+  ports:
+  - port: 9092
+    targetPort: 9092
