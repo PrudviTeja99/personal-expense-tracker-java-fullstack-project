@@ -13,7 +13,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/transactions")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "${origins.allowed}")
 public class TransactionController {
 
     @Autowired
