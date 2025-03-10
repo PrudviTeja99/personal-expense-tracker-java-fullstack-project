@@ -26,5 +26,9 @@ spring:
       valueDeserializer: org.apache.kafka.common.serialization.StringDeserializer
       topic: transaction
       groupId: transaction-consumer-group
+
+origins:
+  allowed: "*"
+
 server:
   port: 8081

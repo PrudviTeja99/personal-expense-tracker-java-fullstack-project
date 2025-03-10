@@ -18,5 +18,9 @@ spring:
       keySerializer: org.apache.kafka.common.serialization.StringSerializer
       valueSerializer: org.apache.kafka.common.serialization.StringSerializer
       topic: ${KAFKA_TOPIC_TRANSACTION}
+
+origins:
+  allowed: ${ORIGINS_ALLOWED}
+
 server:
   port: ${SERVER_PORT}

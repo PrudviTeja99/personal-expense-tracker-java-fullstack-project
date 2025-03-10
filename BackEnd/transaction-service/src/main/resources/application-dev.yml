@@ -19,5 +19,8 @@ spring:
       valueSerializer: org.apache.kafka.common.serialization.StringSerializer
       topic: transaction
 
+origins:
+  allowed: "*"
+
 server:
   port: 8080

@@ -25,5 +25,9 @@ spring:
       valueDeserializer: org.apache.kafka.common.serialization.StringDeserializer
       topic: ${KAFKA_TOPIC_TRANSACTION}
       groupId: ${KAFKA_CONSUMER_GROUP_TRANSACTION}
+
+origins:
+    allowed: ${ORIGINS_ALLOWED}
+
 server:
   port: ${SERVER_PORT}

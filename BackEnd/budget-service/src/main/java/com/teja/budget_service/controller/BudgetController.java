@@ -13,7 +13,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/budgets")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "${origins.allowed}")
 public class BudgetController {
 
     @Autowired
