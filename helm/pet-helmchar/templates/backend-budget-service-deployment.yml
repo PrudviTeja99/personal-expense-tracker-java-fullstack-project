@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: budget-service
-        image: prudviteja/budget-pet:beta-v1
+        image: prudviteja/budget-pet:beta-v2
         ports:
           - containerPort: 8080
         env:
@@ -37,3 +37,5 @@ spec:
           value: transaction
         - name: KAFKA_CONSUMER_GROUP_TRANSACTION
           value: transaction-group
+        - name: ORIGINS_ALLOWED
+          value: "*"
