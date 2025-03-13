@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: transaction-service
-          image: prudviteja/transaction:beta-v5
+          image: prudviteja/transaction:beta-v9
           ports:
             - containerPort: 8080
           env:
@@ -29,4 +29,10 @@ spec:
               value: postgres
             - name: DATABASE_PASSWORD
               value: test
+            - name: KAFKA_CLUSTER
+              value: kafka:9092
+            - name: KAFKA_TOPIC_TRANSACTION
+              value: transaction
+            - name: ORIGINS_ALLOWED
+              value: "*"
 
