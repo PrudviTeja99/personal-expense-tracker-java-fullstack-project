@@ -99,7 +99,7 @@ frontend_deployment:
   selector:
     frontend: personal-expense-tracker-ui
   name: personal-expense-tracker
-  image: prudviteja/personal-expense-tracker-ui:beta-v1
+  image: prudviteja/personal-expense-tracker-ui:beta-v2
   ports:
   - containerPort: 80
 

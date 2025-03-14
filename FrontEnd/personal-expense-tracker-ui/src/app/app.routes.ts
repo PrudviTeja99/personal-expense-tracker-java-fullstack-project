@@ -5,6 +5,6 @@ import { AnalyticsOverviewComponent } from './features/analytics/components/anal
 export const routes: Routes = [
   { path: 'overview', component: AnalyticsOverviewComponent },
   { path: 'transactions', component: TransactionListComponent },
-  { path: 'budget', component: BudgetListComponent },
+  { path: 'budgets', component: BudgetListComponent },
   { path: '', redirectTo: '/overview', pathMatch: 'full' }
 ];
