@@ -1,0 +1,29 @@
+{{- if .Values.database_budget_deployment }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.database_budget_deployment.name }}"
+spec:
+  replicas: {{ .Values.database_budget_deployment.replicas }}
+  selector:
+    matchLabels:
+      {{ toYaml .Values.database_budget_deployment.selector }}
+  template:
+    metadata:
+      name: "{{ .Values.database_budget_deployment.name }}"
+      labels:
+        {{ toYaml .Values.database_budget_deployment.selector }}
+    spec:
+      containers:
+      - name: "{{ .Values.database_budget_deployment.name }}"
+        image: "{{ .Values.database_budget_deployment.image }}"
+        ports:
+          {{ toYaml .Values.database_budget_deployment.ports }}
+        {{- if .Values.database_budget_deployment.env }}
+        env:
+          {{- range $env:=.Values.database_budget_deployment.env }}
+          - name: "{{ $env.name }}"
+            value: "{{ $env.value }}"
+          {{- end }}
+        {{- end }}
+{{- end }}

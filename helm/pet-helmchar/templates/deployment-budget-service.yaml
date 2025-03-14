@@ -1,0 +1,29 @@
+{{- if .Values.backend_budget_service_deployment }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.backend_budget_service_deployment.name }}"
+spec:
+  replicas: {{ .Values.backend_budget_service_deployment.replicas }}
+  selector:
+    matchLabels:
+      {{ toYaml .Values.backend_budget_service_deployment.selector }}
+  template:
+    metadata:
+      name: "{{ .Values.backend_budget_service_deployment.name }}"
+      labels:
+        {{ toYaml .Values.backend_budget_service_deployment.selector }}
+    spec:
+      containers:
+      - name: "{{ .Values.backend_budget_service_deployment.name }}"
+        image: "{{ .Values.backend_budget_service_deployment.image }}"
+        ports:
+          {{ toYaml .Values.backend_budget_service_deployment.ports }}
+        {{- if .Values.backend_budget_service_deployment.env }}
+        env:
+          {{- range $env:=.Values.backend_budget_service_deployment.env }}
+          - name: "{{ $env.name }}"
+            value: "{{ $env.value }}"
+          {{- end }}
+        {{- end }}
+{{- end }}

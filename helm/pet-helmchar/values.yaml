@@ -1,6 +1,6 @@
 # Deployments
 
-backend-transaction-service-deployment:
+backend_transaction_service_deployment:
   replicas: 1
   labels:
     app: backend
@@ -26,7 +26,7 @@ backend-transaction-service-deployment:
   - name: ORIGINS_ALLOWED
     value: "*"
 
-backend-budget-service-deployment:
+backend_budget_service_deployment:
   replicas: 1
   labels:
     app: backend
@@ -56,7 +56,7 @@ backend-budget-service-deployment:
   - name: ORIGINS_ALLOWED
     value: "*"
 
-database-transaction-deployment:
+database_transaction_deployment:
   replicas: 1
   labels:
     app: database
@@ -74,7 +74,7 @@ database-transaction-deployment:
   - name: POSTGRES_DB
     value: test
   
-database-budget-deployment:
+database_budget_deployment:
   replicas: 1
   labels:
     app: database
@@ -92,7 +92,7 @@ database-budget-deployment:
   - name: POSTGRES_DB
     value: test
 
-frontend-deployment:
+frontend_deployment:
   replicas: 1
   labels:
     app: frontend
@@ -105,7 +105,7 @@ frontend-deployment:
 
 # Services
 
-transaction-cluster-ip-service:
+transaction_cluster_ip_service:
   selector:
     backend: transaction
   ports:
@@ -113,28 +113,28 @@ transaction-cluster-ip-service:
     targetPort: 8080
 
 
-database-transaction-cluster-ip-service:
+database_transaction_cluster_ip_service:
   selector:
     database: transaction
   ports:
   - port: 5000
     targetPort: 5432
 
-budget-cluster-ip-service:
+budget_cluster_ip_service:
   selector:
     backend: budget
   ports:
   - port: 8080
     targetPort: 8080
 
-database-budget-cluster-ip-service:
+database_budget_cluster_ip_service:
   selector:
     database: budget
   ports:
   - port: 5000
     targetPort: 5432
 
-frontend-cluster-ip-service:
+frontend_cluster_ip_service:
   selector:
     frontend: personal-expense-tracker-ui
   ports:
@@ -143,3 +143,6 @@ frontend-cluster-ip-service:
 
 # StatefulSets
 
+test:
+  service:
+    port : 8080

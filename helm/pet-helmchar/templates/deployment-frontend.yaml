@@ -1,0 +1,29 @@
+{{- if .Values.frontend_deployment }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.frontend_deployment.name }}"
+spec:
+  replicas: {{ .Values.frontend_deployment.replicas }}
+  selector:
+    matchLabels:
+      {{ toYaml .Values.frontend_deployment.selector }}
+  template:
+    metadata:
+      name: "{{ .Values.frontend_deployment.name }}"
+      labels:
+        {{ toYaml .Values.frontend_deployment.selector }}
+    spec:
+      containers:
+      - name: "{{ .Values.frontend_deployment.name }}"
+        image: "{{ .Values.frontend_deployment.image }}"
+        ports:
+          {{ toYaml .Values.frontend_deployment.ports }}
+        {{- if .Values.frontend_deployment.env }}
+        env:
+          {{- range $env:=.Values.frontend_deployment.env }}
+          - name: "{{ $env.name }}"
+            value: "{{ $env.value }}"
+          {{- end }}
+        {{- end }}
+{{- end }}
