@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: keycloak
+  name: {{ .Values.deployment.keycloak.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-{{- toYaml .Values.deployment.labels | nindent 6}}
+{{- toYaml .Values.deployment.keycloak.labels | nindent 6}}
   template:
     metadata:
-      name: {{ .Values.deployment.name }}
+      name: {{ .Values.deployment.keycloak.name }}
       labels:
-{{- toYaml .Values.deployment.labels | nindent 8}}
+{{- toYaml .Values.deployment.keycloak.labels | nindent 8}}
     spec:
       containers:
-      - name: {{ .Values.deployment.name }}
-        image: {{ .Values.deployment.image }}
+      - name: {{ .Values.deployment.keycloak.name }}
+        image: {{ .Values.deployment.keycloak.image }}
+        args: ["start-dev"]
         ports:
-        - containerPort: {{ .Values.deployment.port }}
+        - containerPort: {{ .Values.deployment.keycloak.port }}
         env:
-{{- toYaml .Values.deployment.env | nindent 12 }}
+{{- toYaml .Values.deployment.keycloak.env | nindent 12 }}

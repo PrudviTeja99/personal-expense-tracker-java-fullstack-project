@@ -57,8 +57,12 @@ service:
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
   type: ClusterIP
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-  port: 8080
-  name: keycloak
+  postgres:
+    name: postgres
+    port: 5432
+  keycloak:
+    port: 8080
+    name: keycloak
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 # ingress:
@@ -127,21 +131,43 @@ tolerations: []
 affinity: {}
 
 deployment:
-  name: keycloak
-  image: quay.io/keycloak/keycloak:latest
-  labels:
-    auth: keycloak
-  port: 8080
-  env:
-  - name: KC_BOOTSTRAP_ADMIN_USERNAME
-    value: admin
-  - name: KC_BOOTSTRAP_ADMIN_PASSWORD
-    value: admin
+  keycloak:
+    name: keycloak
+    image: quay.io/keycloak/keycloak:latest
+    labels:
+      auth: keycloak
+    port: 8080
+    env:
+      - name: KEYCLOAK_ADMIN
+        value: admin
+      - name: KEYCLOAK_ADMIN_PASSWORD
+        value: admin
+      - name: KC_DB
+        value: postgres
+      - name: KC_DB_URL
+        value: jdbc:postgresql://postgres:5432/keycloak
+      - name: KC_DB_USERNAME
+        value: keycloak
+      - name: KC_DB_PASSWORD
+        value: keycloakpassword
+  postgres:
+    name: postgres
+    image: postgres:latest
+    labels:
+      auth: postgres
+    env:
+    - name: POSTGRES_DB
+      value: keycloak
+    - name: POSTGRES_USER
+      value: keycloak
+    - name: POSTGRES_PASSWORD
+      value: keycloakpassword
+    port: 5432
 
 ingress:
   enabled: true
   name: keycloak-resource
   keycloak:
-    path: /keycloak
+    path: /keycloak/
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$1

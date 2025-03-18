@@ -7,6 +7,7 @@ metadata:
   annotations:
     {{ toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
@@ -14,7 +15,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Values.service.name }}
+            name: {{ .Values.service.keycloak.name }}
             port:
-              number: {{ .Values.service.port }}
+              number: {{ .Values.service.keycloak.port }}
 {{- end }}

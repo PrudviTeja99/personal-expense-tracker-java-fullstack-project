@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.service.name }}
+  name: {{ .Values.service.keycloak.name }}
   namespace: {{ .Values.namespace }}
 spec:
   type: {{ .Values.service.type }}
   selector:
-    {{ toYaml .Values.deployment.labels }}
+    {{ toYaml .Values.deployment.keycloak.labels }}
   ports:
-  - port: {{ .Values.service.port }}
-    targetPort: {{ .Values.deployment.port }}
+  - port: {{ .Values.service.keycloak.port }}
+    targetPort: {{ .Values.deployment.keycloak.port }}

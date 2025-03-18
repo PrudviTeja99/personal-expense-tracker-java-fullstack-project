@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.postgres.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+{{- toYaml .Values.deployment.postgres.labels | nindent 6}}
+  template:
+    metadata:
+      name: {{ .Values.deployment.postgres.name }}
+      labels:
+{{- toYaml .Values.deployment.postgres.labels | nindent 8}}
+    spec:
+      containers:
+      - name: {{ .Values.deployment.postgres.name }}
+        image: {{ .Values.deployment.postgres.image }}
+        ports:
+        - containerPort: {{ .Values.deployment.postgres.port }}
+        env:
+{{- toYaml .Values.deployment.postgres.env | nindent 12 }}
