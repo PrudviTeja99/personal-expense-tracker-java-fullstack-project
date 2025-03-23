@@ -138,9 +138,9 @@ deployment:
       auth: keycloak
     port: 8080
     env:
-      - name: KEYCLOAK_ADMIN
+      - name: KC_BOOTSTRAP_ADMIN_USERNAME
         value: admin
-      - name: KEYCLOAK_ADMIN_PASSWORD
+      - name: KC_BOOTSTRAP_ADMIN_PASSWORD
         value: admin
       - name: KC_DB
         value: postgres
@@ -150,6 +150,16 @@ deployment:
         value: keycloak
       - name: KC_DB_PASSWORD
         value: keycloakpassword
+      - name: KC_PROXY
+        value: edge
+      - name: KC_HOST_STRICT_BACKCHANNEL
+        value: "true"
+      - name: KC_HOSTNAME_STRICT_HTTPS
+        value: "false"
+      - name: KC_HTTP_ENABLED
+        value: "true"
+      - name: keycloak.url
+        value: http://keycloak:8080
   postgres:
     name: postgres
     image: postgres:latest

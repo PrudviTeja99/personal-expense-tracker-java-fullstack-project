@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: auth
+server:
+  port: 9999
+  servlet:
+    context-path: '/auth'
+
+authorization:
+  server:
+      keycloak:
+        tokenURL: "http://localhost:8443/realms/pet/protocol/openid-connect/token"
+        grant-type: "authorization_code"
+        client-id: "pet-client"
+        client-secret: "sAJqPRMZPJE1zmiOSBXLdYnDQ2Dj63zw"
+        redirect-url: "http://localhost:9999/auth/login"
