@@ -16,4 +16,8 @@ public class UserAuthController {
     public ResponseEntity<String> userLogin(@RequestParam(name = "code") String code){
         return ResponseEntity.ok(authService.userLogin(code));
     }
+    @GetMapping("/logout")
+    public ResponseEntity<String> userLogout(){
+        return ResponseEntity.ok("Successfully logged out !!");
+    }
 }
