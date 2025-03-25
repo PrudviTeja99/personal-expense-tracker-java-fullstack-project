@@ -18,6 +18,6 @@ public class UserAuthController {
     }
     @GetMapping("/logout")
     public ResponseEntity<String> userLogout(){
-        return ResponseEntity.ok("Successfully logged out !!");
+        return ResponseEntity.ok("Successfully logged out from app !!");
     }
 }
