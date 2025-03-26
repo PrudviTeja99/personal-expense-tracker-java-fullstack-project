@@ -18,7 +18,12 @@ spring:
       keySerializer: org.apache.kafka.common.serialization.StringSerializer
       valueSerializer: org.apache.kafka.common.serialization.StringSerializer
       topic: ${KAFKA_TOPIC_TRANSACTION}
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL}/realms/${KEYCLOAK_REALM}
+          jwk-set-uri: ${KEYCLOAK_URL}/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs # to validate token
 origins:
   allowed: ${ORIGINS_ALLOWED}
 

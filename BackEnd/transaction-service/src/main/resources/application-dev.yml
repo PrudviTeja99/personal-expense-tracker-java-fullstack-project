@@ -2,7 +2,7 @@ spring:
   application:
     name: transaction-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/mydatabase
+    url: jdbc:postgresql://localhost:5433/mydatabase
     username: admin
     password: admin
   jpa:
@@ -18,7 +18,12 @@ spring:
       keySerializer: org.apache.kafka.common.serialization.StringSerializer
       valueSerializer: org.apache.kafka.common.serialization.StringSerializer
       topic: transaction
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8443/realms/pet
+          jwk-set-uri: http://localhost:8443/realms/pet/protocol/openid-connect/certs # to validate token
 origins:
   allowed: "*"
 
