@@ -7,6 +7,14 @@ import { AuthComponent } from './shared/components/auth/auth.component';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
 
 export const routes: Routes = [
+  { 
+    path: 'auth', 
+    component: AuthComponent 
+  },
+  {
+    path: 'auth/login',
+    component: AuthComponent
+  },
   {
     path: '',
     component: MainLayoutComponent,
@@ -33,8 +41,4 @@ export const routes: Routes = [
       }
     ]
   },
-  { 
-    path: 'auth', 
-    component: AuthComponent 
-  }
 ];
