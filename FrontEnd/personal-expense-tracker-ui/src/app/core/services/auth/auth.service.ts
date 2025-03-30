@@ -20,6 +20,36 @@ export class AuthService {
     window.location.href = `${authURL}?${queryParams.toString()}`;
   }
 
+  logout(){
+    const logoutURL = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect/logout`;
+    const refreshToken = this.fetchRefreshToken();
+    const options = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+    const body = new URLSearchParams({
+      'client_id': environment.keycloak.clientId,
+      'client_secret': environment.keycloak.clientSecret,
+      'refresh_token': `${refreshToken}`
+    });
+    this.http.post(logoutURL,body.toString(),options).subscribe({
+      next: (data)=>{
+        this.clearUserCreds();
+        this.router.navigate(['/auth']);
+        console.log("Successfully logged out !!");
+      },
+      error: (error)=>{
+        console.error("Unable to logout !!");
+      }
+    });
+  }
+
+  clearUserCreds(){
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+  }
+
   handleCallBack(code: string){
     const tokenURL = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect/token`;
     const body = new URLSearchParams({
@@ -39,6 +69,7 @@ export class AuthService {
     this.http.post(tokenURL, body.toString(), options).subscribe({
       next: (data: any) => {
         this.saveToken(data.access_token);
+        this.saveRefreshToken(data.refresh_token);
         this.router.navigate(['/overview']);
       },
       error: (error)=>{
@@ -55,9 +86,15 @@ export class AuthService {
   saveToken(token : string){
     return localStorage.setItem("access_token",token);
   }
+  saveRefreshToken(refreshToken:string){
+    return localStorage.setItem('refresh_token',refreshToken)
+  }
 
   fetchToken(){
     return localStorage.getItem("access_token");
+  }
+  fetchRefreshToken(){
+    return localStorage.getItem('refresh_token');
   }
   validateToken(): Promise<boolean> {
     const accessToken=this.fetchToken();

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NotificationService } from '../../../features/notification/services/notification.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,12 @@ import { NotificationService } from '../../../features/notification/services/not
 })
 export class HeaderComponent {
 
-  constructor(private notificationService: NotificationService) {
+  constructor(private notificationService: NotificationService,private authService:AuthService) {
     this.notificationService.connect('john');
+  }
+  logout(){
+    console.log("logout !!");
+    this.authService.logout();
   }
   onDestroy(){
     this.notificationService.closeConnection();
