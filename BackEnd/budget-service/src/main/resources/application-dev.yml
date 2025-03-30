@@ -26,7 +26,12 @@ spring:
       valueDeserializer: org.apache.kafka.common.serialization.StringDeserializer
       topic: transaction
       groupId: transaction-consumer-group
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8443/realms/pet
+          jwk-set-uri: http://localhost:8443/realms/pet/protocol/openid-connect/certs
 origins:
   allowed: "*"
 
