@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -80,7 +81,27 @@ export class AuthService {
   }
 
   refreshToken(){
+    const tokenURL = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/protocol/openid-connect/token`;
+    const refreshToken = this.fetchRefreshToken();
+    const options = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+    const body = new URLSearchParams({
+      'grant_type':'refresh_token',
+      'refresh_token': `${refreshToken}`,
+      'client_id': environment.keycloak.clientId,
+      'client_secret': environment.keycloak.clientSecret
+    });
 
+    return this.http.post(tokenURL,body.toString(),options).pipe(
+      map((response:any)=>{
+        this.saveToken(response.access_token);
+        this.saveRefreshToken(response.refresh_token);
+        return response;
+      })
+    );
   }
 
   saveToken(token : string){
