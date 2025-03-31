@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BudgetAddComponent } from '../budget-add/budget-add/budget-add.component';
 import { budget } from '../../model/budget.model';
 import { CommonModule } from '@angular/common';
+import { SnackbarNotificationService } from '../../../../shared/services/snackbar-notification.service';
 
 @Component({
   selector: 'app-budget-list',
@@ -20,7 +21,7 @@ export class BudgetListComponent {
   totalElements: number = 0;
   budgets: budget[] = [];
 
-  constructor(private budgetService: BudgetService, private matDialog: MatDialog) {
+  constructor(private budgetService: BudgetService, private matDialog: MatDialog, private snackBarNotificationService: SnackbarNotificationService) {
   }
 
   ngOnInit() {
@@ -50,10 +51,12 @@ export class BudgetListComponent {
           this.budgetService.createBudget(data.budget).subscribe({
             next: ()=>{
               console.log("Budget got created successfully !!");
+              this.snackBarNotificationService.openMatSnackBar("Successfully created budget !!");
               this.fetchBudgets(this.pageIndex,this.pageSize);
             },
             error: ()=>{
               console.error("Unable to create budget !!");
+              this.snackBarNotificationService.openMatSnackBar("Unable to create budget !!");
             }
           });
         }
@@ -65,10 +68,12 @@ export class BudgetListComponent {
     this.budgetService.deleteBudget(budgetId).subscribe({
       next: () => {
         console.log("Successfully deleted");
+        this.snackBarNotificationService.openMatSnackBar("Successfully deleted budget !!");
         this.fetchBudgets(this.pageIndex,this.pageSize);
       },
       error: () => {
-        console.log("Unable to delete")
+        console.log("Unable to delete");
+        this.snackBarNotificationService.openMatSnackBar("Unable to delete budget !!");
       }
     });
   }

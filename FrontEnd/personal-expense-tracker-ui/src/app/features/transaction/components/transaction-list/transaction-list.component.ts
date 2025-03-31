@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionAddComponent } from '../transaction-add/transaction-add/transaction-add.component';
 import { transaction } from '../../model/transaction.model';
+import { SnackbarNotificationService } from '../../../../shared/services/snackbar-notification.service';
 
 @Component({
   selector: 'app-transaction-list',
@@ -21,34 +22,38 @@ export class TransactionListComponent {
 
   totalElements = 0;
   totalPages = 0;
-  transactions: transaction[]=[];
+  transactions: transaction[] = [];
 
-  constructor(private transactionService: TransactionService,private matDialog:MatDialog) {}
+  constructor(private transactionService: TransactionService, private matDialog: MatDialog,private snackBarService: SnackbarNotificationService) { }
 
-  ngOnInit(){
-    this.fetchTransactions(this.pageIndex,this.pageSize);
+  ngOnInit() {
+    this.fetchTransactions(this.pageIndex, this.pageSize);
   }
 
-  deleteTransaction(transactionId: string,elementIndex:number){
+  deleteTransaction(transactionId: string, elementIndex: number) {
     // console.log(transactionId);
     this.transactionService.deleteTransaction(transactionId).subscribe({
       next: (data) => {
         console.log("Successfully Deleted ");
-        this.fetchTransactions(this.pageIndex,this.pageSize);
+        this.snackBarService.openMatSnackBar("Successfully deleted transacion !!")
+        this.fetchTransactions(this.pageIndex, this.pageSize);
       },
-      error: (error)=> console.error("Unable to delete !!")
+      error: (error) => { 
+        console.error("Unable to delete !!");
+        this.snackBarService.openMatSnackBar("Unable to delete transaction !!");
+      }
     })
   }
 
-  fetchTransactions(pageIndex:number,pageSize:number){
-    this.transactionService.getTransactions(pageIndex,pageSize).subscribe((pageableTransactions) => {
+  fetchTransactions(pageIndex: number, pageSize: number) {
+    this.transactionService.getTransactions(pageIndex, pageSize).subscribe((pageableTransactions) => {
       this.transactions = pageableTransactions.transactions;
       this.totalElements = pageableTransactions.totalElements;
       this.totalPages = pageableTransactions.totalPages;
     });
   }
 
-  createTransaction(){
+  createTransaction() {
     const dialogRef = this.matDialog.open(TransactionAddComponent,
       {
         width: '40em',
@@ -58,15 +63,17 @@ export class TransactionListComponent {
     );
 
     dialogRef.afterClosed().subscribe({
-      next: (data)=>{
-        if(data!=undefined){
+      next: (data) => {
+        if (data != undefined) {
           this.transactionService.createTransaction(data.transaction).subscribe({
-            next: (data)=>{
+            next: (data) => {
               console.log("Successfully Created !!");
-              this.fetchTransactions(this.pageIndex,this.pageSize);
+              this.snackBarService.openMatSnackBar("Successfully created transaction !!");
+              this.fetchTransactions(this.pageIndex, this.pageSize);
             },
-            error: (error)=>{
+            error: (error) => {
               console.error("Unable to create transaction !!");
+              this.snackBarService.openMatSnackBar("Unable to create transaction !!");
             }
           });
         }
@@ -74,8 +81,8 @@ export class TransactionListComponent {
     })
   }
 
-  onPageChange(pageIndex: number){
+  onPageChange(pageIndex: number) {
     this.pageIndex = pageIndex;
-    this.fetchTransactions(pageIndex,this.pageSize);
+    this.fetchTransactions(pageIndex, this.pageSize);
   }
 }
