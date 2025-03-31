@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NotificationService } from '../../../features/notification/services/notification.service';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink,RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   providers: [NotificationService],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

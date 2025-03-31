@@ -1,24 +1,36 @@
+<ng-template #notificationTemplate>
+  <a class="btn btn-link text-light position-relative" routerLink="/notifications">
+    <i class="bi bi-bell-fill"></i>
+    @if (false) {
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            3
+        </span>
+    }
+  </a>
+</ng-template>
+
+<ng-template #profileTemplate>
+  <div class="dropdown">
+    <button class="btn btn-link text-light dropdown-toggle" 
+            type="button" 
+            id="profileDropdown" 
+            data-bs-toggle="dropdown" 
+            aria-expanded="false">
+      <i class="bi bi-person-circle"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+      <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
+    </ul>
+  </div>
+</ng-template>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/">Expense Tracker</a>
-      
+      <a class="navbar-brand" routerLink="/">Expense Tracker</a>      
       <!-- Notification and Profile icons for mobile -->
       <div class="d-flex d-lg-none order-1 ms-auto">
-        <a class="btn btn-link text-light position-relative" routerLink="/notifications">
-          <i class="bi bi-bell-fill"></i>
-          @if (false) {
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  3
-              </span>
-          }
-        </a>
-        <a class="btn btn-link text-light position-relative">
-          <i class="bi bi-person-circle" id="profileDropdown" 
-          data-bs-toggle="dropdown" ></i>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-            <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
-          </ul>
-        </a>
+        <ng-container *ngTemplateOutlet="notificationTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="profileTemplate"></ng-container>
       </div>
 
       <!-- Hamburger menu -->
@@ -50,26 +62,8 @@
 
       <!-- Notification and Profile icons for desktop -->
       <div class="d-none d-lg-flex order-4">
-        <a class="btn btn-link text-light position-relative" routerLink="/notifications">
-          <i class="bi bi-bell-fill"></i>
-          @if (false) {
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  3
-              </span>
-          }
-        </a>
-        <div class="dropdown">
-          <button class="btn btn-link text-light dropdown-toggle" 
-                  type="button" 
-                  id="profileDropdown" 
-                  data-bs-toggle="dropdown" 
-                  aria-expanded="false">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-            <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
-          </ul>
-        </div>
+        <ng-container *ngTemplateOutlet="notificationTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="profileTemplate"></ng-container>
       </div>
     </div>
   </nav>
